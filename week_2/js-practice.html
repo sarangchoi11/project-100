@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>자바스크립트 연습</title>
+
+  <style>
+    :root {
+      --ink:    #2b2b2b;
+      --gray:   #6d6d6d;
+      --line:   #e4e4e4;
+      --wash:   #f5f5f5;
+      --accent: #fa7a45;
+    }
+
+    body {
+      margin: 0;
+      padding: 40px 20px 80px;
+      background: #ffffff;
+      color: var(--ink);
+      font-family: "Pretendard", -apple-system, "Apple SD Gothic Neo",
+                   "Malgun Gothic", system-ui, sans-serif;
+      line-height: 1.6;
+    }
+
+    .wrap { max-width: 720px; margin: 0 auto; }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: 26px;
+      letter-spacing: -0.02em;
+    }
+
+    .sub { margin: 0 0 24px; color: var(--gray); font-size: 15px; }
+
+    .howto {
+      padding: 18px 22px;
+      background: var(--wash);
+      border-radius: 12px;
+      font-size: 15px;
+    }
+
+    .howto b { color: var(--accent); }
+
+    h2 {
+      margin: 34px 0 10px;
+      font-size: 17px;
+      letter-spacing: -0.01em;
+    }
+
+    h2 .tag {
+      margin-left: 8px;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--gray);
+    }
+
+    /* ── console.log 결과가 나오는 칸 ── */
+    #출력 {
+      min-height: 120px;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      font-family: "D2Coding", "IBM Plex Mono", Menlo, Consolas, monospace;
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    #출력 .empty { color: #b5b5b5; }
+
+    .line {
+      padding: 2px 0;
+      border-bottom: 1px dotted #f0f0f0;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .line.err { color: #c0392b; font-weight: 700; }
+
+    /* ── 연습 6~7에서 만질 칸 ── */
+    .playground {
+      padding: 30px 24px;
+      background: var(--wash);
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    #제목 {
+      margin: 0 0 16px;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    #버튼 {
+      padding: 10px 20px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    footer {
+      margin-top: 36px;
+      color: var(--gray);
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <h1>자바스크립트 연습</h1>
+    <p class="sub">코딩 동아리 2주차</p>
+
+    <div class="howto">
+      <b>1.</b> 이 파일을 VS Code에서 열어주세요<br>
+      <b>2.</b> <b>F12</b>를 눌러 개발자 도구 → <b>Console</b> 탭을 열어주세요<br>
+      <b>3.</b> 아래 <b>script 태그</b> 안의 연습 문제를 풀고 저장(Ctrl+S / Cmd+S)하면 됩니다
+    </div>
+
+    <h2>결과 <span class="tag">연습 1~5</span></h2>
+    <div id="출력"><span class="empty">여기에 console.log 결과가 나옵니다</span></div>
+
+    <h2>화면 바꾸기 <span class="tag">연습 6~7</span></h2>
+    <div class="playground">
+      <p id="제목">아직 아무것도 안 바뀌었어요</p>
+      <button id="버튼">눌러보세요</button>
+    </div>
+
+    <footer>
+      결과가 안 보이면 저장(Ctrl+S)을 했는지 확인해주세요.<br>
+      그래도 안 되면 카톡방에 스크린샷 올려주시면 됩니다!
+    </footer>
+
+  </div>
+
+  <script>
+    /* ═══════════════════════════════════════════════════
+       여기는 건드리지 마세요!
+       console.log 결과를 위 '결과' 칸에도 같이 보여주는 부분입니다.
+
+       (지금은 무슨 말인지 몰라도 괜찮아요.
+        근데 여기 나오는 것 중 몇 개는 연습 6에서 배웁니다!)
+    ═══════════════════════════════════════════════════ */
+    const 출력칸 = document.getElementById("출력");
+    const 원래로그 = console.log;
+
+    console.log = function (...값들) {
+      원래로그(...값들);
+      출력칸.querySelector(".empty")?.remove();
+      const 줄 = document.createElement("div");
+      줄.className = "line";
+      줄.textContent = 값들.join(" ");
+      출력칸.appendChild(줄);
+    };
+
+    window.onerror = function (메시지) {
+      출력칸.querySelector(".empty")?.remove();
+      const 줄 = document.createElement("div");
+      줄.className = "line err";
+      줄.textContent = "⚠ " + 메시지;
+      출력칸.appendChild(줄);
+    };
+    /* ═══════════ 여기까지 ═══════════ */
+
+
+
+    /* ═══════════════════════════════════
+       연습 1~5 · 문법 익히기
+       결과는 위 '결과' 칸과 콘솔에 나옵니다
+    ═══════════════════════════════════ */
+
+
+    /* ───────────────────────────────────────────────────
+       연습 1 · 변수
+
+       내 이름을 변수에 담고, 콘솔에 찍어보세요.
+
+       힌트:  let 이름 = "사랑";
+             console.log(이름);
+    ─────────────────────────────────────────────────── */
+
+    // 여기에 써보세요 ↓
+
+
+
+
+    /* ───────────────────────────────────────────────────
+       연습 2 · 문자열 합치기
+
+       이름과 조 번호를 합쳐서 이렇게 나오게 해보세요.
+       →  사랑 (2조)
+
+       힌트: + 로 글자를 이어붙일 수 있어요.
+             "사랑" + " (" + 2 + "조)"
+    ─────────────────────────────────────────────────── */
+
+    // 여기에 써보세요 ↓
+
+
+
+
+    /* ───────────────────────────────────────────────────
+       연습 3 · 함수 만들기
+
+       이름을 받아서 "OO님 안녕하세요!" 라고 찍는
+       함수를 만들고, 세 명에게 인사해보세요.
+
+       힌트:  function 인사하기(이름) {
+               ...
+             }
+             인사하기("사랑");
+    ─────────────────────────────────────────────────── */
+
+    // 여기에 써보세요 ↓
+
+
+
+
+    /* ───────────────────────────────────────────────────
+       연습 4 · 값을 돌려주는 함수
+
+       숫자 두 개를 받아서 곱한 값을 돌려주는 함수를
+       만들어보세요. 그리고 3 × 7 을 계산해서 찍어보세요.
+
+       힌트: return 을 씁니다.
+    ─────────────────────────────────────────────────── */
+
+    // 여기에 써보세요 ↓
+
+
+
+
+    /* ───────────────────────────────────────────────────
+       연습 5 · 조건문
+
+       출석 인원을 변수에 담고,
+       10명 이상이면  "많이 왔네요!"
+       아니면        "오붓하네요!"
+       라고 찍어보세요.
+
+       힌트:  if (인원 >= 10) { ... } else { ... }
+    ─────────────────────────────────────────────────── */
+
+    // 여기에 써보세요 ↓
+
+
+
+
+    /* ═══════════════════════════════════
+       연습 6~7 · 화면이랑 연결하기
+
+       지금까지는 콘솔에만 찍었죠?
+       이제 진짜 화면을 바꿔봅니다!
+
+       위쪽 회색 칸(화면 바꾸기)을 보면서 해주세요.
+    ═══════════════════════════════════ */
+
+
+    /* ───────────────────────────────────────────────────
+       연습 6 · 화면에서 찾아서 바꾸기
+
+       회색 칸의 "아직 아무것도 안 바뀌었어요" 를
+       본인이 원하는 글자로 바꿔보세요.
+
+       두 줄이면 됩니다.
+
+       힌트:  const 제목 = document.getElementById("제목");
+             제목.textContent = "안녕하세요!";
+
+       getElementById  = 화면에서 그 이름표를 가진 걸 찾아줘
+       textContent     = 그 안의 글자
+    ─────────────────────────────────────────────────── */
+
+    // 여기에 써보세요 ↓
+
+
+
+
+    /* ───────────────────────────────────────────────────
+       연습 7 · 버튼을 누르면 바뀌게
+
+       "눌러보세요" 버튼을 누르면
+       위 글자가 바뀌도록 만들어보세요.
+
+       힌트:  const 버튼 = document.getElementById("버튼");
+
+             버튼.addEventListener("click", function () {
+               제목.textContent = "눌렀다!";
+             });
+
+       addEventListener = 이 일이 벌어지면 이걸 해줘
+       "click"          = 눌렸을 때
+
+       ※ 괄호 안에 function 이 통째로 들어갑니다.
+         "누르면 이걸 해줘" 하고 할 일을 통째로 맡기는 거예요!
+    ─────────────────────────────────────────────────── */
+
+    // 여기에 써보세요 ↓
+
+  </script>
+</body>
+</html>
