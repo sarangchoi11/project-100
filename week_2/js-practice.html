@@ -4,8 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>자바스크립트 연습</title>
+  
 
   <style>
+    /* 이건 CSS 코드입니다. */
     :root {
       --ink:    #2b2b2b;
       --gray:   #6d6d6d;
@@ -78,7 +80,7 @@
 
     .line.err { color: #c0392b; font-weight: 700; }
 
-    /* ── 연습 6~7에서 만질 칸 ── */
+    /* ── 연습 6~7에서 건드릴 칸 ── */
     .playground {
       padding: 30px 24px;
       background: var(--wash);
@@ -110,6 +112,13 @@
       color: var(--gray);
       font-size: 14px;
     }
+
+    img {
+      width: 160px;
+      height: auto;
+      display: block;
+      margin: 0 0 24px;
+    }
   </style>
 </head>
 
@@ -117,7 +126,8 @@
   <div class="wrap">
 
     <h1>자바스크립트 연습</h1>
-    <p class="sub">코딩 동아리 2주차 (신난다!)</p>
+    <p class="sub">코딩 동아리 2주차</p>
+    <img src="즐겁다.png" alt="즐겁다">
 
     <div class="howto">
       <b>1.</b> <b>F12</b>를 눌러 개발자 도구 → <b>Console</b> 탭을 열어주세요<br>
@@ -143,9 +153,6 @@
     /* ═══════════════════════════════════════════════════
        여기는 건드리지 마세요!
        console.log 결과를 위 '결과' 칸에도 같이 보여주는 부분입니다.
-
-       (지금은 무슨 말인지 몰라도 괜찮아요.
-        근데 여기 나오는 것 중 몇 개는 연습 6에서 배웁니다!)
     ═══════════════════════════════════════════════════ */
     const 출력칸 = document.getElementById("출력");
     const 원래로그 = console.log;
