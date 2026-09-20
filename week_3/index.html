@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>청년부</title>
+
+  <!-- 스타일(CSS)은 index.css 에 따로 있어요 -->
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+  <div class="wrap">
+
+    <header>
+      <h1>청년부</h1>
+      <span class="date">2026년 9월 20일</span>
+    </header>
+
+    <!-- 이번 주 공지 -->
+    <section class="notice">
+      <span class="label">이번 주 공지</span>
+      <h2>코딩 동아리 3주차</h2>
+      <p>오늘은 출석 기능을 만듭니다. 새로고침해도 명단이 남게 만드는 게 목표예요!</p>
+    </section>
+
+    <!-- 카드 3개 -->
+    <div class="cards">
+
+      <div class="card">
+        <h3>주보</h3>
+        <p>지난 주보 모아보기</p>
+      </div>
+
+      <div class="card">
+        <h3>조</h3>
+        <p>조 편성과 조원 소개</p>
+      </div>
+
+      <!-- ↓↓↓ 오늘 고칠 카드는 여기예요! ↓↓↓ -->
+      <div class="card">
+        <h3>출석</h3>
+        <p>모임 출석 체크</p>
+
+        <button id="버튼">출석하기</button>
+      </div>
+      <!-- ↑↑↑ 여기까지 ↑↑↑ -->
+
+    </div>
+
+    <footer>
+      청년부 코딩 동아리 · 2026 가을
+    </footer>
+
+  </div>
+
+  <script>
+    /* ─────────────────────────────────────────────
+       오늘 고칠 부분은 여기예요!
+
+       지난주에 배운 세 가지가 다 들어있습니다.
+       찾고 → 기다리고 → 바꾸고
+    ───────────────────────────────────────────── */
+
+    // 찾기
+    const 버튼 = document.getElementById("버튼");
+
+    // 기다리기
+    버튼.addEventListener("click", function () {
+      // 바꾸기
+      버튼.textContent = "출석 완료 ✓";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+/* ─────────────────────────────────────────────
+   색깔은 여기서 한 번에 바꿔주면 됩니당
+   이 값만 고치면 페이지 전체 색이 바뀌어요!
+───────────────────────────────────────────── */
+:root {
+  --ink:    #2b2b2b;   /* 글씨색 */
+  --gray:   #6d6d6d;   /* 흐린 글씨색 */
+  --line:   #e4e4e4;   /* 선 색 */
+  --wash:   #f5f5f5;   /* 연한 배경 */
+  --accent: #fa7a45;   /* 포인트 색 ← 여기 바꿔보세요 */
+}
+
+body {
+  margin: 0;
+  padding: 40px 20px 60px;
+  background: #ffffff;
+  color: var(--ink);
+  font-family: "Pretendard", -apple-system, "Apple SD Gothic Neo",
+               "Malgun Gothic", system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+/* 가운데 정렬된 본문 폭 */
+.wrap {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* ── 맨 위 제목 ── */
+header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 18px;
+  border-bottom: 2px solid var(--ink);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+}
+
+header .date {
+  font-size: 14px;
+  color: var(--gray);
+}
+
+/* ── 이번 주 공지 (큰 카드) ── */
+.notice {
+  margin-top: 28px;
+  padding: 26px 28px;
+  background: var(--wash);
+  border-radius: 12px;
+}
+
+.label {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.notice h2 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+}
+
+.notice p {
+  margin: 0;
+  color: var(--gray);
+  font-size: 15px;
+}
+
+/* ── 아래 카드 3개 ── */
+.cards {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;   /* 3칸으로 나눕니다 */
+  gap: 16px;
+  align-items: start;
+}
+
+.card {
+  padding: 22px 20px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.card h3 {
+  margin: 0 0 6px;
+  font-size: 17px;
+}
+
+.card p {
+  margin: 0;
+  color: var(--gray);
+  font-size: 14px;
+}
+
+/* ── 출석 버튼 ── */
+button {
+  margin-top: 14px;
+  padding: 9px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ─────────────────────────────────────────────
+   ↓ 여기서부터는 3주차용 스타일입니다.
+     이름칸이랑 명단을 만들면 알아서 예쁘게 나와요!
+     (CSS는 미리 해뒀으니 오늘은 안 건드리셔도 됩니다)
+───────────────────────────────────────────── */
+
+/* 이름 적는 입력칸 */
+#이름칸 {
+  margin-top: 14px;
+  padding: 9px 14px;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+#이름칸:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* 출석 명단 목록 */
+#명단 {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+#명단 li {
+  padding: 7px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--gray);
+}
+
+/* ── 화면이 좁으면 카드를 세로로 쌓습니다 ── */
+@media (max-width: 640px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}

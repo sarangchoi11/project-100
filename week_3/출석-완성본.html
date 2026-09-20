@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>출석 기능 완성본</title>
+
+  <style>
+    :root {
+      --ink:    #2b2b2b;
+      --gray:   #6d6d6d;
+      --line:   #e4e4e4;
+      --wash:   #f5f5f5;
+      --accent: #fa7a45;
+    }
+
+    body {
+      margin: 0;
+      padding: 40px 20px 60px;
+      background: #ffffff;
+      color: var(--ink);
+      font-family: "Pretendard", -apple-system, "Apple SD Gothic Neo",
+                   "Malgun Gothic", system-ui, sans-serif;
+      line-height: 1.6;
+    }
+
+    .wrap { max-width: 420px; margin: 0 auto; }
+
+    .note {
+      margin-bottom: 20px;
+      padding: 14px 18px;
+      background: var(--wash);
+      border-radius: 10px;
+      font-size: 13px;
+      color: var(--gray);
+    }
+
+    .card {
+      padding: 24px 22px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .card h3 { margin: 0 0 4px; font-size: 18px; }
+    .card p  { margin: 0; color: var(--gray); font-size: 14px; }
+
+    #이름칸 {
+      margin-top: 14px;
+      padding: 9px 14px;
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    #버튼 {
+      margin-top: 10px;
+      padding: 10px 20px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    #명단 {
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    #명단 li {
+      padding: 7px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+      color: var(--gray);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <p class="note">
+      3주차 완성본입니다. 막히면 여기랑 비교해보세요!<br>
+      명단을 싹 지우려면 콘솔에 <code>localStorage.clear()</code>
+    </p>
+
+    <div class="card">
+      <h3>출석</h3>
+      <p>모임 출석 체크</p>
+
+      <input id="이름칸" placeholder="이름을 적어주세요">
+      <button id="버튼">출석하기</button>
+
+      <ul id="명단"></ul>
+    </div>
+
+  </div>
+
+  <script>
+    // ── 화면에서 찾아두기 ──────────────────────────
+    const 이름칸 = document.getElementById("이름칸");
+    const 버튼 = document.getElementById("버튼");
+    const 명단 = document.getElementById("명단");
+
+    // ── 출석한 사람들을 담아둘 배열 ─────────────────
+    // 불러올 때 통째로 바꿔야 해서 const 가 아니라 let !
+    let 명단목록 = [];
+
+
+    // ── 배열을 보고 화면을 그리는 함수 ──────────────
+    function 그리기() {
+      명단.textContent = "";                      // 화면 싹 비우고
+
+      for (const 이름 of 명단목록) {               // 배열에서 하나씩 꺼내서
+        const 줄 = document.createElement("li");  // 새 줄 만들고
+        줄.textContent = 이름;                    // 글자 넣고
+        명단.appendChild(줄);                     // 붙이기
+      }
+    }
+
+
+    // ── 배열을 창고에 저장하는 함수 ─────────────────
+    function 저장하기() {
+      // 창고엔 글자만 들어가서, 배열을 글자로 포장해서 넣습니다
+      localStorage.setItem("명단", JSON.stringify(명단목록));
+    }
+
+
+    // ── 창고에서 꺼내오는 함수 ──────────────────────
+    function 불러오기() {
+      const 저장된것 = localStorage.getItem("명단");
+
+      if (저장된것 === null) return;    // 저장된 게 없으면 여기서 그만
+
+      명단목록 = JSON.parse(저장된것);   // 포장을 풀어서 배열로
+    }
+
+
+    // ── 출석시키는 함수 ─────────────────────────────
+    // 버튼도 엔터도 둘 다 이 함수를 부릅니다
+    function 출석하기() {
+      const 이름 = 이름칸.value;        // 입력칸에 적힌 글자
+
+      if (이름 === "") return;          // 안 적었으면 여기서 그만
+
+      명단목록.push(이름);              // 배열에 담고
+      저장하기();                       // 창고에 저장하고
+      그리기();                         // 화면 다시 그리기
+
+      이름칸.value = "";                // 입력칸 비우기
+    }
+
+
+    // ── 버튼을 누르면 ───────────────────────────────
+    // 괄호 없이 이름만! 괄호를 붙이면 지금 당장 실행돼버려요
+    버튼.addEventListener("click", 출석하기);
+
+
+    // ── 이름칸에서 엔터를 치면 ──────────────────────
+    이름칸.addEventListener("keydown", function (event) {
+      if (event.isComposing) return;    // 한글 조합 중이면 그만
+      if (event.key === "Enter") {      // 대문자 E !
+        출석하기();
+      }
+    });
+
+
+    // ── 페이지가 열릴 때 딱 한 번 ───────────────────
+    불러오기();
+    그리기();
+  </script>
+</body>
+</html>
